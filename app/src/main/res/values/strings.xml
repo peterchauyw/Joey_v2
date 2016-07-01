@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Joey</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="google_api_key">AIzaSyA2OYrabDQpk7kevsSp2AEe_prGL-MPCCs</string>
+</resources>

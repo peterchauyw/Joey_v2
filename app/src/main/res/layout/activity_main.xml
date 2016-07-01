@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.os.joey_beta.MainActivity">
+
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/viewPager"
+        ></android.support.v4.view.ViewPager>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:tabMode="fixed"
+        app:tabGravity="fill"
+        android:layout_marginTop="8dp"
+        android:background="#FFCA86"
+        app:tabTextAppearance="@style/MyTabStyle"
+        android:layout_alignParentBottom="true"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        ></android.support.design.widget.TabLayout>
+
+
+</RelativeLayout>
+
