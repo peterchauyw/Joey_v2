@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 
 /**
@@ -23,7 +22,8 @@ import android.widget.TextView;
  */
 public class NavigatorFragment extends Fragment implements SensorEventListener{
 
-    private ImageView image;
+    private ImageView imagePointer;
+    private ImageView imageBear;
     private float currentDegree;
     private SensorManager sensorManager;
 
@@ -36,8 +36,12 @@ public class NavigatorFragment extends Fragment implements SensorEventListener{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_navigator, container, false);
-        image = (ImageView)view.findViewById(R.id.pointer);
+        imagePointer = (ImageView)view.findViewById(R.id.pointer);
+        imageBear = (ImageView)view.findViewById(R.id.pointerCenter);
         sensorManager = (SensorManager)this.getActivity().getSystemService(getActivity().SENSOR_SERVICE);
+
+        imageBear.setX(imageBear.getX()+10);
+        imageBear.setY(imageBear.getY()+20);
 
 
 
@@ -79,7 +83,7 @@ public class NavigatorFragment extends Fragment implements SensorEventListener{
 
         ra.setFillAfter(true);
 
-        image.startAnimation(ra);
+        imagePointer.startAnimation(ra);
         currentDegree = -degree;
     }
 

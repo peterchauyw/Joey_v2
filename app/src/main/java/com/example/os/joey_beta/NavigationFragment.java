@@ -5,15 +5,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
-/**
- * Created by OS on 10/05/2016.
- */
+/** Created by OS on 10/05/2016. ***/
 public class NavigationFragment extends Fragment{
 
     Button btNavigate;
@@ -45,16 +41,11 @@ public class NavigationFragment extends Fragment{
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
                 if(isBtPressed){
-                    btNavigate.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_bt_nav));
+                    btNavigate.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_direction_custom));
                     transaction.replace(R.id.container,mapFragment);
                 }else if(isBtPressed == false){
-                    //NavigatorFragment navigatorFragment = new NavigatorFragment();
-                    //FragmentTransaction backTransaction = getFragmentManager().beginTransaction();
-                    btNavigate.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_bt_nav_p));
+                    btNavigate.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_navigate_custom));
                     transaction.replace(R.id.container,navigatorFragment);
-                    //backTransaction.replace(R.id.container,navigatorFragment);
-                    //backTransaction.addToBackStack(null);
-                    //backTransaction.commit();
                 }
                 transaction.addToBackStack(null);
                 transaction.commit();

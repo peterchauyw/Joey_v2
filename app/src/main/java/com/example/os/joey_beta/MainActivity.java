@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         // Starting Bluetooth Request
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         arrayListPairedBluetoothDevices = new ArrayList<BluetoothDevice>();
-        arrayListPairedDevices = new ArrayAdapter<String>(this,android.R.layout.select_dialog_singlechoice );
+        arrayListPairedDevices = new ArrayAdapter<String>(this,android.R.layout.select_dialog_singlechoice);
 
             if (bluetoothAdapter == null) {
             Log.d("Not supported device", "This device doesn't support bluetooth");

@@ -12,13 +12,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/imageJoey"
         android:background="@drawable/distance_joey_25"
-        android:layout_marginBottom="60dp" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageRabbit"
-        android:background="@drawable/distance_rabbit_25"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="130dp" />
 
     <TextView
         android:id="@+id/txtDistance"
@@ -26,10 +21,18 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:gravity="center_horizontal"
-        android:layout_marginBottom="60dp"
-        android:textSize="50dp"
+        android:layout_marginBottom="80dp"
+        android:textSize="45dp"
         android:text="Distance"
-        android:textAlignment="center" />;
-        />
+        android:textAlignment="center" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageRabbit"
+        android:layout_centerHorizontal="true"
+        android:layout_alignBottom="@id/txtDistance"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/distance_rabbit_25"/>
 
 </RelativeLayout>
