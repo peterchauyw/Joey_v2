@@ -72,7 +72,7 @@ public class NavigatorFragment extends Fragment implements SensorEventListener{
     public void onSensorChanged(SensorEvent event) {
         float degree = Math.round(event.values[0]);
 
-        Log.d("Heading: ",""+ Float.toString(degree)+" degrees");
+        //Log.d("Heading: ",""+ Float.toString(degree)+" degrees");
 
         RotateAnimation ra = new RotateAnimation(currentDegree
                 ,-degree

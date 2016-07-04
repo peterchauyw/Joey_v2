@@ -3,6 +3,7 @@ package com.example.os.joey_beta;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
@@ -18,6 +19,7 @@ import com.example.os.joey_beta.Services.BluetoothService;
 
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.StringTokenizer;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private static String address;
 
     private BluetoothSocket bluetoothSocket = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
         stopService(new Intent(MainActivity.this, BluetoothService.class));
     }
+
 
     private void getPairedDevices(){
         Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();

@@ -15,9 +15,12 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.os.Handler;
 import android.os.IBinder;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
 import android.support.annotation.Nullable;
+
+import com.example.os.joey_beta.MainActivity;
 
 /* Created by OS on 24/06/2016. */
 
@@ -42,6 +45,7 @@ public class BluetoothService extends Service {
     double trackerLongitude;
 
 
+
     /*
     public BluetoothService(){
         super();
@@ -58,6 +62,8 @@ public class BluetoothService extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
+
+
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -81,6 +87,19 @@ public class BluetoothService extends Service {
                             String lat = recDataString.substring(1,10);
                             String lng = recDataString.substring(11,22);
                             String emoji = recDataString.substring(23,24);
+
+
+
+                            Intent intent = new Intent("com.example.communication.RECEIVER");
+                            intent.putExtra("lat", lat);
+                            intent.putExtra("lon", lng);
+                            sendBroadcast(intent);
+
+
+
+
+
+
 
                             Log.d("Latitude", lat);
                             Log.d("Longitude", lng);

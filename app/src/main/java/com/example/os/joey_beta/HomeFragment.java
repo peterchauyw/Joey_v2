@@ -1,5 +1,9 @@
 package com.example.os.joey_beta;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,9 +26,13 @@ public class HomeFragment extends Fragment{
 
     TextView txtDistance;
     float defaultDistance = 1;
-    float distance = 0;
     ImageView imgJoey;
     ImageView imgRabbit;
+
+    double distance;
+
+    private Intent mIntent;
+    private MsgReceiver msgReceiver;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -41,9 +49,14 @@ public class HomeFragment extends Fragment{
         imgRabbit = (ImageView)view.findViewById(R.id.imageRabbit);
 
 
+        msgReceiver = new MsgReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.example.communication.RECEIVER");
+        getActivity().registerReceiver(msgReceiver, intentFilter);
+
+
         //imgJoey.setY(10.0f);
-        distance = defaultDistance;
-        txtDistance.setText("Distance: "+defaultDistance);
+        txtDistance.setText("Distance: "+ distance);
 
         imgRabbit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,4 +82,27 @@ public class HomeFragment extends Fragment{
     public void onResume() {
         super.onResume();
     }
+
+    @Override
+    public void onDestroy() {
+        //停止服务
+        getActivity().stopService(mIntent);
+        //注销广播
+        getActivity().unregisterReceiver(msgReceiver);
+        super.onDestroy();
+    }
+
+    public class MsgReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //拿到进度，更新UI
+            String lat = intent.getStringExtra("lat");
+            String lon = intent.getStringExtra("lon");
+            distance = Double.parseDouble(lat);
+            txtDistance.setText("Distance: "+ distance);
+        }
+
+    }
+
 }
