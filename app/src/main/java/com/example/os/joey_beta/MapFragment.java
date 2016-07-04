@@ -100,6 +100,8 @@ public class MapFragment extends SupportMapFragment implements GoogleApiClient.C
         getMap().setTrafficEnabled(false);
         getMap().setBuildingsEnabled(true);
 
+        /*
+
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             getMap().setMyLocationEnabled(true);
@@ -108,7 +110,7 @@ public class MapFragment extends SupportMapFragment implements GoogleApiClient.C
             requestPermissions(new String[]{
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.INTERNET}, 10);
-        }
+        }*/
 
         getMap().setMyLocationEnabled(true);
         getMap().getUiSettings().setZoomControlsEnabled(true);
@@ -152,6 +154,8 @@ public class MapFragment extends SupportMapFragment implements GoogleApiClient.C
             mGoogleApiClient.disconnect();
     }
 
+    /*
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == 10) {
@@ -164,7 +168,7 @@ public class MapFragment extends SupportMapFragment implements GoogleApiClient.C
                 Toast.makeText(getActivity(),"Access denied",Toast.LENGTH_LONG).show();
             }
         }
-    }
+    }*/
 
     @Override
     public void onConnected(Bundle bundle) {
@@ -288,38 +292,3 @@ public class MapFragment extends SupportMapFragment implements GoogleApiClient.C
         getMap().addCircle(options);
     }
 }
-
-
-
-
-/*
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;*/
-
-
-
-/**
- * A simple {@link Fragment} subclass.
- */
-
-/*
-public class MapFragment extends Fragment {
-
-
-    public MapFragment() {
-        // Required empty public constructor
-    }
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_map, container, false);
-    }
-
-}
-*/

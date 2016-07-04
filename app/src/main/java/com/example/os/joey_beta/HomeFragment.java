@@ -34,10 +34,12 @@ public class HomeFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
         // Inflate the layout for this fragment
         txtDistance = (TextView)view.findViewById(R.id.txtDistance);
         imgJoey = (ImageView)view.findViewById(R.id.imageJoey);
         imgRabbit = (ImageView)view.findViewById(R.id.imageRabbit);
+
 
         //imgJoey.setY(10.0f);
         distance = defaultDistance;
@@ -50,6 +52,7 @@ public class HomeFragment extends Fragment{
                 imgJoey.setY(imgJoey.getY()-10);
                 distance+=1;
                 txtDistance.setText("Distance: "+(int)distance+" ft");
+
             }
         });
 
@@ -60,5 +63,10 @@ public class HomeFragment extends Fragment{
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 }

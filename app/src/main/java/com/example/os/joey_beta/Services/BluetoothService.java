@@ -8,6 +8,7 @@ import java.util.TimerTask;
 import java.util.UUID;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -22,20 +23,35 @@ import android.support.annotation.Nullable;
 
 public class BluetoothService extends Service {
 
+    //private final Context ctx;
+
     public static String BT_TAG = "BLUETOOTH_ISSUE";
     public static String ACTION = "ACTION_GETDATA";
     private ConnectedThread mConnectedThread;
     private BluetoothSocket bluetoothSocket = null;
     Handler bluetoothIn;
-    Timer taskTimer;
+    //Timer taskTimer;
     final int handlerState = 0;
     private StringBuilder recDataString = new StringBuilder();
-    private Float valA, valB, Area, LPS, VolumenTotal;
-    private String perfil;
 
     // SPP UUID service, should work for most devices
     private static final UUID BTMODULEUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private static String address = null;
+
+    double trackerLatitude;
+    double trackerLongitude;
+
+
+    /*
+    public BluetoothService(){
+        super();
+        this.ctx = this.getApplicationContext();
+    }
+
+    public BluetoothService(Context c){
+        super();
+        this.ctx = c;
+    }*/
 
     @Nullable
     @Override
@@ -54,10 +70,10 @@ public class BluetoothService extends Service {
                     //recDataString.trimToSize();
                     int endOfLineIndex = recDataString.indexOf("/");
                     int initialPosition = recDataString.indexOf("|");
-                    Log.d("Obtained string", ""+recDataString);
+                    //Log.d("Obtained string", ""+recDataString);
                     if(endOfLineIndex > 0){
                         String inputData = recDataString.substring(initialPosition,endOfLineIndex);
-                        Log.d("Received data", inputData);
+                        //Log.d("Received data", inputData);
                         Log.d("Data length", String.valueOf(inputData.length()));
 
                         if(inputData.charAt(0)=='|'){
@@ -70,6 +86,8 @@ public class BluetoothService extends Service {
                             Log.d("Longitude", lng);
                             Log.d("Emoji", emoji);
 
+                            trackerLatitude = Double.parseDouble(lat);
+                            trackerLongitude = Double.parseDouble(lng);
                             /*
                             Log.d("XXX", "Service inputData true "+ recDataString);
                             Log.d("XXX", "Service inputData sub "+ recDataString.substring(initialPosition, endOfLineIndex));
@@ -135,6 +153,14 @@ public class BluetoothService extends Service {
         }, 5000, (long) (1000*LPS));*/
 
         return super.onStartCommand(intent, flags, startId);
+    }
+
+    public double getTrackerLatitude(){
+        return trackerLatitude;
+    }
+
+    public double getTrackerLongitde(){
+        return trackerLongitude;
     }
 
     @Override
