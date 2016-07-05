@@ -157,7 +157,6 @@ public class MainActivity extends AppCompatActivity {
                                 builderDevice.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-
                                         Intent intentService = new Intent(MainActivity.this,BluetoothService.class);
                                         intentService.putExtra("Address", address);
                                         //intentService.putExtra("Address",deviceString);

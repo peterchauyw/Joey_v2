@@ -1,15 +1,56 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutChatList"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginBottom="60dp"
     tools:context="com.example.os.joey_beta.MessageFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageMsg"
-        android:background="@drawable/message"
-        android:layout_marginBottom="50dp" />
+    <ListView
+        android:id="@+id/carsListView"
+        android:layout_width="match_parent"
+        android:layout_height="384dp"
+        android:layout_alignLeft="@+id/txtMake"
+        android:layout_below="@+id/txtMake"
+        android:layout_weight="0.92">
 
-</FrameLayout>
+    </ListView>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/editTextChat"
+            android:text=""
+            android:layout_weight="1" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Joey"
+            android:id="@+id/buttonSend" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorEmojiBackground">
+
+        <ImageView
+            android:layout_width="89dp"
+            android:layout_height="57dp"
+            android:id="@+id/imgEmoji1"
+            android:background="@drawable/ic_bear"/>
+
+        <ImageView
+            android:layout_width="98dp"
+            android:layout_height="62dp"
+            android:id="@+id/imgEmoji2"
+            android:background="@drawable/ic_bino"/>
+    </TableRow>
+
+</LinearLayout>
