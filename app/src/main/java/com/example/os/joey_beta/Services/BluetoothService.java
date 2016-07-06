@@ -44,8 +44,6 @@ public class BluetoothService extends Service {
     double trackerLatitude;
     double trackerLongitude;
 
-
-
     /*
     public BluetoothService(){
         super();
