@@ -109,16 +109,16 @@ public class HomeFragment extends Fragment implements ConnectionCallbacks, OnCon
         //imgJoey.setY(10.0f);
         txtDistance.setText("Distance: "+ distance);
 
-        imgRabbit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("Joey distance", ""+imgJoey.getY());
-                imgJoey.setY(imgJoey.getY()-10);
-                distance+=1;
-                txtDistance.setText("Distance: "+(int)distance+" ft");
-
-            }
-        });
+//        imgRabbit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.d("Joey distance", ""+imgJoey.getY());
+//                imgJoey.setY(imgJoey.getY()-10);
+//                distance+=1;
+//                txtDistance.setText("Distance: "+(int)distance+" ft");
+//
+//            }
+//        });
 
         //return inflater.inflate(R.layout.fragment_home, container, false);
         return view;
@@ -345,10 +345,14 @@ public class HomeFragment extends Fragment implements ConnectionCallbacks, OnCon
             BigDecimal bd = new BigDecimal(distance);
             bd = bd.round(new MathContext(3));
             distance = bd.doubleValue();
-            
+
             if (distance <= 100) {
                 txtDistance.setText("Distance: " + distance + " ft");
             }
+
+            Log.d("Joey distance", ""+imgJoey.getY());
+            imgJoey.setY(300-(float)(distance*2.5));
+
         }
     }
 
