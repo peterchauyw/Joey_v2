@@ -70,7 +70,7 @@ public class NavigatorFragment extends Fragment implements SensorEventListener{
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        float degree = Math.round(event.values[0]);
+        float degree = Math.round(event.values[0])+25;
 
         //Log.d("Heading: ",""+ Float.toString(degree)+" degrees");
 
