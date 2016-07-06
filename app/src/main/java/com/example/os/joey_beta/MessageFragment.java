@@ -36,6 +36,7 @@ public class MessageFragment extends Fragment {
     String chatMsg = "";
     Button buttonSend;
 
+    String emoji;
     private Intent mIntent;
     private MsgReceiver msgReceiver;
 
@@ -141,12 +142,18 @@ public class MessageFragment extends Fragment {
         super.onDestroy();
     }
 
+    public void sendEmoji(String emoji_out){
+        Intent intent = new Intent("send.emoji");
+        intent.putExtra("emoji", emoji_out);
+        getActivity().sendBroadcast(intent);
+    }
+
     public class MsgReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            String emoji = intent.getStringExtra("emoji");
+            emoji = intent.getStringExtra("emoji");
         }
     }
 
