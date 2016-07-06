@@ -8,11 +8,13 @@ import java.util.TimerTask;
 import java.util.UUID;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
@@ -43,7 +45,8 @@ public class BluetoothService extends Service {
 
     double trackerLatitude;
     double trackerLongitude;
-
+    private Intent mIntent;
+    private MsgReceiver msgReceiver;
 
 
     /*
@@ -124,6 +127,11 @@ public class BluetoothService extends Service {
             }
         };
 
+        msgReceiver = new MsgReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("send.emoji");
+        registerReceiver(msgReceiver, intentFilter);
+
         Toast.makeText(getBaseContext(), "Bluetooth Service started", Toast.LENGTH_SHORT).show();
         Log.d("BL_TAG", "Service started");
         // Get the MAC address from DeviceList Activity via intent
@@ -182,6 +190,8 @@ public class BluetoothService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        stopService(mIntent);
+        unregisterReceiver(msgReceiver);
         /*
         try{
             Log.d("XXX Service", "Closing Bluetooth Socket");
@@ -192,6 +202,8 @@ public class BluetoothService extends Service {
             e.printStackTrace();
         }*/
     }
+
+
 
     private BluetoothSocket createBluetoothSocket(BluetoothDevice device) throws IOException {
 
@@ -245,6 +257,19 @@ public class BluetoothService extends Service {
             }
         }
     }
+
+    public class MsgReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            String emoji = intent.getStringExtra("emoji");
+            mConnectedThread.write(emoji);
+
+            }
+
+        }
+
 }
 
 
