@@ -99,8 +99,6 @@ public class BluetoothService extends Service {
 
 
 
-
-
                             Log.d("Latitude", lat);
                             Log.d("Longitude", lng);
                             Log.d("Emoji", emoji);

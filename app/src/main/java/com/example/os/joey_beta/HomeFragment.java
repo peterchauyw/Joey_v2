@@ -346,6 +346,7 @@ public class HomeFragment extends Fragment implements ConnectionCallbacks, OnCon
             bd = bd.round(new MathContext(3));
             distance = bd.doubleValue();
 
+            Log.i(TAG, "Distance!!!!!!!!!!!!!!: "+distance);
             if (distance <= 100) {
                 txtDistance.setText("Distance: " + distance + " ft");
                 Log.d("Joey distance", ""+imgJoey.getY());

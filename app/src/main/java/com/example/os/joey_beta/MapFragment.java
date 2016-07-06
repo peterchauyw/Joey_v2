@@ -2,6 +2,10 @@ package com.example.os.joey_beta;
 
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -11,7 +15,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -59,6 +65,9 @@ public class MapFragment extends SupportMapFragment implements GoogleApiClient.C
             GoogleMap.MAP_TYPE_NONE };
 
     private int curMapTypeIndex = 1;
+    private Intent mIntent;
+    private MsgReceiver msgReceiver;
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -80,6 +89,11 @@ public class MapFragment extends SupportMapFragment implements GoogleApiClient.C
         getMap().setOnMapLongClickListener(this);
         getMap().setOnInfoWindowClickListener(this);
         getMap().setOnMapClickListener(this);
+
+        msgReceiver = new MsgReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.example.communication.RECEIVER");
+        getActivity().registerReceiver(msgReceiver, intentFilter);
     }
 
     private void initCamera(Location location){
@@ -267,6 +281,13 @@ public class MapFragment extends SupportMapFragment implements GoogleApiClient.C
         return false;
     }
 
+    @Override
+    public void onDestroy() {
+        getActivity().stopService(mIntent);
+        getActivity().unregisterReceiver(msgReceiver);
+        super.onDestroy();
+    }
+
     private String getAddressFromLatLng( LatLng latLng ) {
         Geocoder geocoder = new Geocoder( getActivity() );
 
@@ -291,4 +312,17 @@ public class MapFragment extends SupportMapFragment implements GoogleApiClient.C
         options.fillColor(Color.TRANSPARENT);
         getMap().addCircle(options);
     }
+
+    public class MsgReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            double lat = Double.parseDouble(intent.getStringExtra("lat"));
+            double lon = Double.parseDouble(intent.getStringExtra("lon"));
+
+        }
+    }
+
+
 }
