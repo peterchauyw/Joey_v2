@@ -23,6 +23,9 @@ import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListe
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.text.DateFormat;
 import java.util.Date;
 
@@ -44,12 +47,8 @@ public class HomeFragment extends Fragment implements ConnectionCallbacks, OnCon
     private Intent mIntent;
     private MsgReceiver msgReceiver;
 
-
     protected static final String TAG = "location-updates-sample";
-
     public static final long UPDATE_INTERVAL_IN_MILLISECONDS = 1000;
-
-
     public static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS =
             UPDATE_INTERVAL_IN_MILLISECONDS / 2;
 
@@ -58,30 +57,20 @@ public class HomeFragment extends Fragment implements ConnectionCallbacks, OnCon
     protected final static String LOCATION_KEY = "location-key";
     protected final static String LAST_UPDATED_TIME_STRING_KEY = "last-updated-time-string-key";
 
-    /**
-     * Provides the entry point to Google Play services.
-     */
+        //Provides the entry point to Google Play services.
     protected GoogleApiClient mGoogleApiClient;
 
-    /**
-     * Stores parameters for requests to the FusedLocationProviderApi.
-     */
+        //Stores parameters for requests to the FusedLocationProviderApi.
     protected LocationRequest mLocationRequest;
 
-    /**
-     * Represents a geographical location.
-     */
+        //Represents a geographical location.
     protected Location mCurrentLocation;
 
-    /**
-     * Tracks the status of the location updates request. Value changes when the user presses the
-     * Start Updates and Stop Updates buttons.
-     */
+        //Tracks the status of the location updates request. Value changes when the user presses the
+        //Start Updates and Stop Updates buttons.
     protected Boolean mRequestingLocationUpdates = true;
 
-    /**
-     * Time when the location was updated represented as a String.
-     */
+        //Time when the location was updated represented as a String.
     protected String mLastUpdateTime;
 
 
@@ -117,7 +106,6 @@ public class HomeFragment extends Fragment implements ConnectionCallbacks, OnCon
         intentFilter.addAction("com.example.communication.RECEIVER");
         getActivity().registerReceiver(msgReceiver, intentFilter);
 
-
         //imgJoey.setY(10.0f);
         txtDistance.setText("Distance: "+ distance);
 
@@ -135,10 +123,6 @@ public class HomeFragment extends Fragment implements ConnectionCallbacks, OnCon
         //return inflater.inflate(R.layout.fragment_home, container, false);
         return view;
     }
-
-
-
-
 
 
     private void updateValuesFromBundle(Bundle savedInstanceState) {
@@ -167,8 +151,6 @@ public class HomeFragment extends Fragment implements ConnectionCallbacks, OnCon
         }
     }
 
-
-
     /**
      * Builds a GoogleApiClient. Uses the {@code #addApi} method to request the
      * LocationServices API.
@@ -182,8 +164,6 @@ public class HomeFragment extends Fragment implements ConnectionCallbacks, OnCon
                 .build();
         createLocationRequest();
     }
-
-
 
     protected void createLocationRequest() {
         mLocationRequest = new LocationRequest();
@@ -200,8 +180,6 @@ public class HomeFragment extends Fragment implements ConnectionCallbacks, OnCon
 
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
-
-
 
     /**
      * Requests location updates from the FusedLocationApi.
@@ -225,15 +203,10 @@ public class HomeFragment extends Fragment implements ConnectionCallbacks, OnCon
     }
 
 
-
     private void updatePosition() {
     phoneLatitude = mCurrentLocation.getLatitude();
     phoneLongitude = mCurrentLocation.getLongitude();
-
     }
-
-
-
 
 
     @Override
@@ -263,9 +236,7 @@ public class HomeFragment extends Fragment implements ConnectionCallbacks, OnCon
 
     @Override
     public void onDestroy() {
-        //停止服务
         getActivity().stopService(mIntent);
-        //注销广播
         getActivity().unregisterReceiver(msgReceiver);
         super.onDestroy();
     }
@@ -285,8 +256,6 @@ public class HomeFragment extends Fragment implements ConnectionCallbacks, OnCon
 
         super.onStop();
     }
-
-
 
 
     /**
@@ -346,8 +315,6 @@ public class HomeFragment extends Fragment implements ConnectionCallbacks, OnCon
     }
 
 
-
-
     public double calculateDistance(double startLat, double startLong, double endLat, double endLong) {
 
         double dLat  = Math.toRadians((endLat - startLat));
@@ -371,13 +338,18 @@ public class HomeFragment extends Fragment implements ConnectionCallbacks, OnCon
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            //拿到进度，更新UI
+
             double lat = Double.parseDouble(intent.getStringExtra("lat"));
             double lon = Double.parseDouble(intent.getStringExtra("lon"));
             distance = calculateDistance(phoneLatitude, phoneLongitude, lat, lon) * 3280.84; //in foot
-            txtDistance.setText("Distance: "+ distance + " ft");
+            BigDecimal bd = new BigDecimal(distance);
+            bd = bd.round(new MathContext(3));
+            distance = bd.doubleValue();
+            
+            if (distance <= 100) {
+                txtDistance.setText("Distance: " + distance + " ft");
+            }
         }
-
     }
 
 }
