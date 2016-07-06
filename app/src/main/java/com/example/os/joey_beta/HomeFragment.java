@@ -39,6 +39,7 @@ public class HomeFragment extends Fragment implements ConnectionCallbacks, OnCon
     ImageView imgRabbit;
 
     private double distance;
+    private static final int EARTH_RADIUS = 6371; // Approx Earth radius in KM
 
     private Intent mIntent;
     private MsgReceiver msgReceiver;
@@ -347,6 +348,23 @@ public class HomeFragment extends Fragment implements ConnectionCallbacks, OnCon
 
 
 
+    public double calculateDistance(double startLat, double startLong, double endLat, double endLong) {
+
+        double dLat  = Math.toRadians((endLat - startLat));
+        double dLong = Math.toRadians((endLong - startLong));
+
+        startLat = Math.toRadians(startLat);
+        endLat   = Math.toRadians(endLat);
+
+        double a = haversin(dLat) + Math.cos(startLat) * Math.cos(endLat) * haversin(dLong);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        return EARTH_RADIUS * c; // <-- d
+    }
+
+    public static double haversin (double val) {
+        return Math.pow(Math.sin(val / 2), 2);
+    }
 
 
     public class MsgReceiver extends BroadcastReceiver {
@@ -354,10 +372,10 @@ public class HomeFragment extends Fragment implements ConnectionCallbacks, OnCon
         @Override
         public void onReceive(Context context, Intent intent) {
             //拿到进度，更新UI
-            String lat = intent.getStringExtra("lat");
-            String lon = intent.getStringExtra("lon");
-            distance = Double.parseDouble(lat);
-            txtDistance.setText("Distance: "+ distance);
+            double lat = Double.parseDouble(intent.getStringExtra("lat"));
+            double lon = Double.parseDouble(intent.getStringExtra("lon"));
+            distance = calculateDistance(phoneLatitude, phoneLongitude, lat, lon);
+            txtDistance.setText("Distance: "+ distance+"km");
         }
 
     }
