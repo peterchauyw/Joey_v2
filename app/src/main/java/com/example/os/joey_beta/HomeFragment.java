@@ -374,8 +374,8 @@ public class HomeFragment extends Fragment implements ConnectionCallbacks, OnCon
             //拿到进度，更新UI
             double lat = Double.parseDouble(intent.getStringExtra("lat"));
             double lon = Double.parseDouble(intent.getStringExtra("lon"));
-            distance = calculateDistance(phoneLatitude, phoneLongitude, lat, lon);
-            txtDistance.setText("Distance: "+ distance+"km");
+            distance = calculateDistance(phoneLatitude, phoneLongitude, lat, lon) * 3280.84; //in foot
+            txtDistance.setText("Distance: "+ distance + " ft");
         }
 
     }
