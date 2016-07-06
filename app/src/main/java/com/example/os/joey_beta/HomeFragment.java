@@ -348,10 +348,9 @@ public class HomeFragment extends Fragment implements ConnectionCallbacks, OnCon
 
             if (distance <= 100) {
                 txtDistance.setText("Distance: " + distance + " ft");
+                Log.d("Joey distance", ""+imgJoey.getY());
+                imgJoey.setY(300-(float)(distance*2.5));
             }
-
-            Log.d("Joey distance", ""+imgJoey.getY());
-            imgJoey.setY(300-(float)(distance*2.5));
 
         }
     }
