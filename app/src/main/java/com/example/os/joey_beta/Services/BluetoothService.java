@@ -93,9 +93,8 @@ public class BluetoothService extends Service {
                             Intent intent = new Intent("com.example.communication.RECEIVER");
                             intent.putExtra("lat", lat);
                             intent.putExtra("lon", lng);
+                            intent.putExtra("emoji", emoji);
                             sendBroadcast(intent);
-
-
 
 
 

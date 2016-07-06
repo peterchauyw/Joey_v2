@@ -1,5 +1,9 @@
 package com.example.os.joey_beta;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -32,6 +36,9 @@ public class MessageFragment extends Fragment {
     String chatMsg = "";
     Button buttonSend;
 
+    private Intent mIntent;
+    private MsgReceiver msgReceiver;
+
     public MessageFragment() {
         // Required empty public constructor
     }
@@ -45,6 +52,12 @@ public class MessageFragment extends Fragment {
         imgEmoji2 = (ImageView) view.findViewById(R.id.imgEmoji2);
         editTextChat = (EditText) view.findViewById(R.id.editTextChat);
         buttonSend = (Button) view.findViewById(R.id.buttonSend);
+
+        msgReceiver = new MsgReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.example.communication.RECEIVER");
+        getActivity().registerReceiver(msgReceiver, intentFilter);
+
 
         //chatMessageArrayList = new ArrayList<ChatMessage>();
         //chatMessageArrayAdapter = new ArrayAdapter<String>(this.getActivity(),R.layout.chat_item_view);
@@ -120,4 +133,21 @@ public class MessageFragment extends Fragment {
             return itemView;
         }
     }
+
+    @Override
+    public void onDestroy() {
+        getActivity().stopService(mIntent);
+        getActivity().unregisterReceiver(msgReceiver);
+        super.onDestroy();
+    }
+
+    public class MsgReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            String emoji = intent.getStringExtra("emoji");
+        }
+    }
+
 }
