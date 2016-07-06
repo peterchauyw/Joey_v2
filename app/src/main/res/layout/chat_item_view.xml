@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/itemChat"
+        android:id="@+id/item_chat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -17,7 +17,7 @@
         android:background="@drawable/ic_bear_pin50"/>
 
     <TextView
-        android:id="@+id/txtChat"
+        android:id="@+id/txt_chat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
