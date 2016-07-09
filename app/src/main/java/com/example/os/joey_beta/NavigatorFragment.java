@@ -80,11 +80,6 @@ public class NavigatorFragment extends Fragment implements SensorEventListener, 
 
 
 
-
-
-
-
-
     public NavigatorFragment() {
         // Required empty public constructor
     }

@@ -183,12 +183,12 @@ public class MessageFragment extends Fragment {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-<<<<<<< HEAD
+
             String emoji = intent.getStringExtra("emoji");
-=======
+
 
             emoji = intent.getStringExtra("emoji");
->>>>>>> origin/master
+
         }
     }
 

@@ -45,12 +45,10 @@ public class BluetoothService extends Service {
 
     double trackerLatitude;
     double trackerLongitude;
-<<<<<<< HEAD
-=======
+
     private Intent mIntent;
     private MsgReceiver msgReceiver;
 
->>>>>>> origin/master
 
     /*
     public BluetoothService(){
@@ -135,7 +133,7 @@ public class BluetoothService extends Service {
         intentFilter.addAction("send.emoji");
         registerReceiver(msgReceiver, intentFilter);
 
-        Toast.makeText(getBaseContext(), "Bluetooth Service started", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), "Device connected.", Toast.LENGTH_SHORT).show();
         Log.d("BL_TAG", "Service started");
         // Get the MAC address from DeviceList Activity via intent
         // Get the MAC address from the DeviceListActivity via Extra
@@ -162,7 +160,7 @@ public class BluetoothService extends Service {
         }
         mConnectedThread = new ConnectedThread(bluetoothSocket);
         mConnectedThread.start();
-        Toast.makeText(getBaseContext(), "Done", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getBaseContext(), "Done", Toast.LENGTH_LONG).show();
 
 
         /*

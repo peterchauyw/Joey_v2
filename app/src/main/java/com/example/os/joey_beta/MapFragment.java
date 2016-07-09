@@ -146,7 +146,7 @@ public class MapFragment extends SupportMapFragment implements GoogleApiClient.C
 
         getMap().setMyLocationEnabled(true);
         getMap().getUiSettings().setZoomControlsEnabled(true);
-        Toast.makeText(getActivity(),"Location = "+mCurrentLocation,Toast.LENGTH_LONG).show();
+        //Toast.makeText(getActivity(),"Location = "+mCurrentLocation,Toast.LENGTH_LONG).show();
 
         originMarker = getMap().addMarker(new MarkerOptions()
                 .position(new LatLng(getLatitude(),getLongitude()))
@@ -282,6 +282,8 @@ public class MapFragment extends SupportMapFragment implements GoogleApiClient.C
 
     @Override
     public void onMapLongClick(LatLng latLng) {
+
+        /*
         MarkerOptions options = new MarkerOptions().position( latLng );
         options.title( getAddressFromLatLng(latLng) );
 
@@ -290,7 +292,7 @@ public class MapFragment extends SupportMapFragment implements GoogleApiClient.C
                         getResources(), R.drawable.ic_rabbit_pin50  ) ) );  // Default resource: R.mipmap.ic_launcher
 
         getMap().addMarker(options);
-        latLng2 = new LatLng(latLng.latitude,latLng.longitude);
+        latLng2 = new LatLng(latLng.latitude,latLng.longitude);*/
 
         /*
 
