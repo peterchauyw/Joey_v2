@@ -11,14 +11,15 @@
     <ListView
         android:id="@+id/chatListView"
         android:layout_width="match_parent"
-        android:layout_height="380dp"
-        >
+        android:layout_height="350dp"
+        android:background="@color/white">
 
     </ListView>
 
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/colorEmojiBackground">
 
         <EditText
             android:layout_width="wrap_content"
@@ -31,25 +32,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Joey"
+            android:textColor="@color/white"
+            android:background="#544F4F"
             android:id="@+id/buttonSend" />
     </TableRow>
 
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorEmojiBackground">
+        android:background="@color/colorEmojiBackground"
+        android:gravity="center">
 
         <ImageView
-            android:layout_width="89dp"
-            android:layout_height="57dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
             android:id="@+id/imgEmoji1"
-            android:background="@drawable/ic_bear"/>
+            android:background="@drawable/rabbit_emoji_love80"/>
 
         <ImageView
-            android:layout_width="89dp"
-            android:layout_height="57dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/imgEmoji2"
-            android:background="@drawable/ic_bino"/>
+            android:layout_marginRight="10dp"
+            android:background="@drawable/rabbit_emoji_smile80"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgEmoji3"
+            android:background="@drawable/rabbit_emoji_worried80"/>
     </TableRow>
 
 </LinearLayout>

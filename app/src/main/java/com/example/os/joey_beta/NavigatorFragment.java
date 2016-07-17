@@ -43,8 +43,6 @@ public class NavigatorFragment extends Fragment implements SensorEventListener, 
     private float currentDegree;
     private SensorManager sensorManager;
 
-
-
     private Intent mIntent;
     private MsgReceiver msgReceiver;
 
@@ -76,13 +74,9 @@ public class NavigatorFragment extends Fragment implements SensorEventListener, 
 
 
 
-    private double phoneLatitude;
-    private double phoneLongitude;
-
-
-
-
-
+    private double phoneLatitude =  37.872227;
+    private double phoneLongitude =  -122.261848;
+    double lat = 37.872427, lon = -122.261878;
 
 
 
@@ -242,6 +236,31 @@ public class NavigatorFragment extends Fragment implements SensorEventListener, 
     @Override
     public void onSensorChanged(SensorEvent event) {
         float degree = Math.round(event.values[0])+25;
+        double delta = lat - phoneLatitude;
+        double gamma = lon - phoneLongitude;
+        float a = Float.valueOf(String.valueOf(Math.atan2(delta,gamma)*180/Math.PI));
+        if(delta > 0 && gamma > 0){
+            Log.d("Quadrant 1", ""+a);
+            degree = Math.round(event.values[0])+25 + 90 -a;
+            degree = -degree;
+            Log.d("Quadrant 1", ""+a+ "Grados 2: "+degree);
+        }else if(delta > 0 && gamma < 0){
+            degree = Math.round(event.values[0])+25 + 180 -a;
+            degree = -degree;
+            Log.d("Quadrant 1", ""+a+ "Grados 2: "+degree);
+        }else if(delta < 0 && gamma < 0){
+            degree = Math.round(event.values[0])+25 + 270 -a;
+            degree = -degree;
+            Log.d("Quadrant 1", ""+a+ "Grados 2: "+degree);
+        }else if(delta <0 && gamma > 0){
+            degree = Math.round(event.values[0])+25 -a;
+            degree = -degree;
+            Log.d("Quadrant 1", ""+a+ "Grados 2: "+degree);
+        }
+
+
+
+
 
         //Log.d("Heading: ",""+ Float.toString(degree)+" degrees");
 
@@ -337,9 +356,8 @@ public class NavigatorFragment extends Fragment implements SensorEventListener, 
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            double lat = Double.parseDouble(intent.getStringExtra("lat"));
-            double lon = Double.parseDouble(intent.getStringExtra("lon"));
-
+                lat = Double.parseDouble(intent.getStringExtra("lat"));
+                lon = Double.parseDouble(intent.getStringExtra("lon"));
             }
 
         }

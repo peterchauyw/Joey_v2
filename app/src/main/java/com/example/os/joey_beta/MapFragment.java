@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -36,6 +37,10 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 /**
  * Created by OS on 19/05/2016.
@@ -56,6 +61,12 @@ public class MapFragment extends SupportMapFragment implements GoogleApiClient.C
     LatLng latLng2;
 
     Marker originMarker;
+    Marker joeyMarker;
+
+    PolylineOptions polylineOptions;
+    Polyline polyline;
+
+    boolean isJoeyMarkerCreated = false;
     //private static final String polyline = "gsqqFxxu_SyRlTys@npAkhAzY{MsVc`AuHwbB}Lil@}[goCqGe|BnUa`A~MkbG?eq@hRq}@_N}vKdB";
 
     private final int[] MAP_TYPES = { GoogleMap.MAP_TYPE_SATELLITE,
@@ -89,6 +100,13 @@ public class MapFragment extends SupportMapFragment implements GoogleApiClient.C
         getMap().setOnMapLongClickListener(this);
         getMap().setOnInfoWindowClickListener(this);
         getMap().setOnMapClickListener(this);
+
+        joeyMarker = getMap().addMarker(new MarkerOptions()
+                .position(new LatLng(latitude,longitude))
+                .title("Joey is here!")
+                .snippet(getAddressFromLatLng(new LatLng(latitude,longitude)))
+                .icon(BitmapDescriptorFactory.fromBitmap(
+                        BitmapFactory.decodeResource(getResources(),R.drawable.ic_rabbit_pin50))));
 
         msgReceiver = new MsgReceiver();
         IntentFilter intentFilter = new IntentFilter();
@@ -128,7 +146,7 @@ public class MapFragment extends SupportMapFragment implements GoogleApiClient.C
 
         getMap().setMyLocationEnabled(true);
         getMap().getUiSettings().setZoomControlsEnabled(true);
-        Toast.makeText(getActivity(),"Location = "+mCurrentLocation,Toast.LENGTH_LONG).show();
+        //Toast.makeText(getActivity(),"Location = "+mCurrentLocation,Toast.LENGTH_LONG).show();
 
         originMarker = getMap().addMarker(new MarkerOptions()
                 .position(new LatLng(getLatitude(),getLongitude()))
@@ -138,6 +156,7 @@ public class MapFragment extends SupportMapFragment implements GoogleApiClient.C
                         BitmapFactory.decodeResource(getResources(),R.drawable.ic_bear_pin50))));
 
         //drawCircle(new LatLng(getLatitude(),getLongitude()));
+
 
         getMap().setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
             @Override
@@ -152,6 +171,14 @@ public class MapFragment extends SupportMapFragment implements GoogleApiClient.C
                                 BitmapFactory.decodeResource(getResources(),R.drawable.ic_bear_pin50))));
             }
         });
+
+
+
+        polylineOptions = new PolylineOptions()
+                .add(latLng1)
+                .add(latLng1);
+        polyline = getMap().addPolyline(polylineOptions
+                .color(Color.CYAN));
 
     }
 
@@ -169,7 +196,6 @@ public class MapFragment extends SupportMapFragment implements GoogleApiClient.C
     }
 
     /*
-
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == 10) {
@@ -256,6 +282,8 @@ public class MapFragment extends SupportMapFragment implements GoogleApiClient.C
 
     @Override
     public void onMapLongClick(LatLng latLng) {
+
+        /*
         MarkerOptions options = new MarkerOptions().position( latLng );
         options.title( getAddressFromLatLng(latLng) );
 
@@ -264,14 +292,16 @@ public class MapFragment extends SupportMapFragment implements GoogleApiClient.C
                         getResources(), R.drawable.ic_rabbit_pin50  ) ) );  // Default resource: R.mipmap.ic_launcher
 
         getMap().addMarker(options);
-        latLng2 = new LatLng(latLng.latitude,latLng.longitude);
+        latLng2 = new LatLng(latLng.latitude,latLng.longitude);*/
+
+        /*
 
         PolylineOptions polylineOptions = new PolylineOptions()
                 .add(latLng1)
                 .add(latLng2);
 
         Polyline polyline = getMap().addPolyline(polylineOptions
-                .color(Color.CYAN));
+                .color(Color.CYAN));*/
     }
 
     @Override
@@ -320,6 +350,28 @@ public class MapFragment extends SupportMapFragment implements GoogleApiClient.C
 
             double lat = Double.parseDouble(intent.getStringExtra("lat"));
             double lon = Double.parseDouble(intent.getStringExtra("lon"));
+
+            Log.d("BT lat in map", ""+lat);
+            Log.d("BT lon in map", ""+lon);
+
+            joeyMarker.remove();
+            joeyMarker = getMap().addMarker(new MarkerOptions()
+                    .position(new LatLng(lat,lon))
+                    .title("Joey is here!")
+                    .snippet(getAddressFromLatLng(new LatLng(lat,lon)))
+                    .icon(BitmapDescriptorFactory.fromBitmap(
+                            BitmapFactory.decodeResource(getResources(),R.drawable.ic_rabbit_pin50))));
+
+/*
+            polyline.remove();
+            LatLng latLngMarker = new LatLng(getLatitude(),getLongitude());
+            LatLng latLngJoey = new LatLng(lat,lon);
+
+
+            polylineOptions.add(latLngMarker).add(latLngJoey);
+            polyline = getMap().addPolyline(polylineOptions
+                    .color(Color.CYAN));*/
+
 
         }
     }

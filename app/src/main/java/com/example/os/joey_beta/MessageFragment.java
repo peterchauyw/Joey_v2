@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,6 +52,7 @@ public class MessageFragment extends Fragment {
 
         imgEmoji1 = (ImageView) view.findViewById(R.id.imgEmoji1);
         imgEmoji2 = (ImageView) view.findViewById(R.id.imgEmoji2);
+        imgEmoji3 = (ImageView) view.findViewById(R.id.imgEmoji3);
         editTextChat = (EditText) view.findViewById(R.id.editTextChat);
         buttonSend = (Button) view.findViewById(R.id.buttonSend);
 
@@ -58,10 +60,6 @@ public class MessageFragment extends Fragment {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("com.example.communication.RECEIVER");
         getActivity().registerReceiver(msgReceiver, intentFilter);
-
-
-        //chatMessageArrayList = new ArrayList<ChatMessage>();
-        //chatMessageArrayAdapter = new ArrayAdapter<String>(this.getActivity(),R.layout.chat_item_view);
 
         final ArrayAdapter<ChatMessage> adapter = new MyListAdapter();
         final ListView list = (ListView) view.findViewById(R.id.chatListView);
@@ -71,8 +69,16 @@ public class MessageFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 chatMsg = editTextChat.getText().toString();
-                adapter.add(new ChatMessage(1,R.drawable.empty_item, chatMsg));
-                list.setAdapter(adapter);
+                if(chatMsg != null){
+                    adapter.add(new ChatMessage(1,R.drawable.empty_item, chatMsg));
+                    list.setAdapter(adapter);
+                }
+                editTextChat.setText("");
+                View viewKeyboard = getActivity().getCurrentFocus();
+                if(viewKeyboard != null){
+                    InputMethodManager inputMethodManager = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(viewKeyboard.getWindowToken(),0);
+                }
                 Log.d("Chat message: ", chatMsg);
             }
         });
@@ -80,8 +86,7 @@ public class MessageFragment extends Fragment {
         imgEmoji1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //chatMessageArrayList.add(new ChatMessage(1,1,chatMsg));
-                adapter.add(new ChatMessage(1,R.drawable.ic_rabbit_pin50,""));
+                adapter.add(new ChatMessage(1,R.drawable.rabbit_msg_emoji1,""));
                 list.setAdapter(adapter);
             }
         });
@@ -89,7 +94,15 @@ public class MessageFragment extends Fragment {
         imgEmoji2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapter.add(new ChatMessage(1,R.drawable.ic_bear_pin50,""));
+                adapter.add(new ChatMessage(1,R.drawable.rabbit_msg_emoji2,""));
+                list.setAdapter(adapter);
+            }
+        });
+
+        imgEmoji3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.add(new ChatMessage(1,R.drawable.rabbit_msg_emoji3,""));
                 list.setAdapter(adapter);
             }
         });
@@ -99,7 +112,25 @@ public class MessageFragment extends Fragment {
             public boolean onLongClick(View v) {
                 adapter.add(new ChatMessage(2,R.drawable.joey_msg_emoji1,""));
                 list.setAdapter(adapter);
-                return false;
+                return true;
+            }
+        });
+
+        imgEmoji2.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                adapter.add(new ChatMessage(2,R.drawable.joey_msg_emoji2,""));
+                list.setAdapter(adapter);
+                return true;
+            }
+        });
+
+        imgEmoji3.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                adapter.add(new ChatMessage(2,R.drawable.joey_msg_emoji3,""));
+                list.setAdapter(adapter);
+                return true;
             }
         });
 
@@ -153,7 +184,11 @@ public class MessageFragment extends Fragment {
         @Override
         public void onReceive(Context context, Intent intent) {
 
+            String emoji = intent.getStringExtra("emoji");
+
+
             emoji = intent.getStringExtra("emoji");
+
         }
     }
 
